@@ -37,7 +37,7 @@ class SeedCommand extends Command
      */
     public function handle()
     {
-        \Artisan::call('db:seed', ['--class' => 'WebAppId\Professsion\Seeds\DatabaseSeeder']);
-        $this->info('Seeded: WebAppId\Profession\Seeds\ContentSeeder');
+        \Artisan::call('db:seed', ['--class' => 'WebAppId\Profession\Seeds\DatabaseSeeder']);
+        $this->info('Seeded: WebAppId\Profession\Seeds\ProfessionSeeder');
     }
 }

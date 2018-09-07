@@ -2,19 +2,26 @@
 namespace WebAppId\Profession\Seeds;
 
 use Illuminate\Database\Seeder;
+use WebAppId\Profession\Models\Profession;
 
-class DistrictsSeeder extends Seeder
+class ProfessionSeeder extends Seeder
 {
     public function run()
     {
-        $Csv = new CsvtoArray;
-        $file = __DIR__ . '/../../resources/csv/profession.csv';
-        $header = array('id', 'city_id', 'name');
-        $data = $Csv->csv_to_array($file, $header);
+        $csvToArray = new CsvtoArray;
+        $file = __DIR__ . '/../resources/csv/profession.csv';
+        $header = array('name', 'description');
+        $data = $csvToArray->csvToArray($file, $header);
         $collection = collect($data);
-        dd($collection);
-        // foreach($collection->chunk(50) as $chunk) {
-        //     \DB::table(config('laravolt.indonesia.table_prefix') . 'districts')->insert($chunk->toArray());
-        // }
+        $profession = new Profession;
+
+        foreach ($collection as $chunk) {
+            $chunk["code"] = str_replace(' ', '-', strtolower($chunk["name"]));
+            $professionData = $profession->getProfession($chunk["code"]);
+            if ($professionData == null) {
+                $profession->addProfession((object) $chunk);
+            }
+        }
+
     }
 }

@@ -6,7 +6,7 @@ namespace WebAppId\Profession\Seeds;
 
 class CsvtoArray
 {
-    public function csv_to_array($filename = '', $header)
+    public function csvToArray($filename = '', $header)
     {
         $delimiter = ',';
         if (!file_exists($filename) || !is_readable($filename)) {
