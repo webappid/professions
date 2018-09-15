@@ -9,8 +9,8 @@ class ProfessionSeeder extends Seeder
     public function run()
     {
         $csvToArray = new CsvtoArray;
-        $file = __DIR__ . '/../resources/csv/profession.csv';
-        $header = array('name', 'description');
+        $file = __DIR__ . '/../resources/csv/professions.csv';
+        $header = array('profession_category_id','name', 'description');
         $data = $csvToArray->csvToArray($file, $header);
         $collection = collect($data);
         $profession = new Profession;

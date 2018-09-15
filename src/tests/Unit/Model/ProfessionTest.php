@@ -4,7 +4,7 @@ namespace WebAppId\Profession\Tests\Unit\Models;
 use WebAppId\Profession\Models\Profession;
 use WebAppId\Profession\Tests\TestCase;
 
-class ProffesionTest extends TestCase
+class ProfesionTest extends TestCase
 {
     private $profession;
 
@@ -16,6 +16,7 @@ class ProffesionTest extends TestCase
 
     public function testGetAll(){
         $professionData = $this->profession->getAllProfession();
+    
         if(count($professionData)>0){
             $this->assertTrue(true);
         }else{

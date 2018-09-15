@@ -4,13 +4,13 @@ namespace WebAppId\Profession\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\QueryException;
 
-class Profession extends Model
+class ProfessionCategory extends Model
 {
-    protected $table = 'professions';
+    protected $table = 'profession_categories';
 
     protected $hidden = ['created_at', 'updated_at'];
 
-    protected $fillable = ['id', 'code', 'name', 'description'];
+    protected $fillable = ['id', 'code', 'name'];
 
     /**
      * Add Profession
@@ -18,20 +18,18 @@ class Profession extends Model
      * @param Request $request
      * @return boolean/object
      */
-    public function addProfession($request)
+    public function addProfessionCategory($request)
     {
 
         try {
-            $profession = new self();
-            $profession->profession_category_id = $request->profession_category_id;
-            $profession->code = $request->code;
-            $profession->name = $request->name;
-            $profession->description = $request->description;
-            $profession->save();
-            return $profession;
+            $professionCategory = new self();
+            $professionCategory->id = $request->id;
+            $professionCategory->code = $request->code;
+            $professionCategory->name = $request->name;
+            $professionCategory->save();
+            return $professionCategory;
         } catch (QueryException $e) {
             report($e);
-            dd($e);
             return false;
         }
     }
@@ -43,10 +41,10 @@ class Profession extends Model
      * @param String $code
      * @return Object
      */
-    public function updateProfessionByCode($request, $code)
+    public function updateProfessionCategoryByCode($request, $code)
     {
-        $professionData = $this->getProfession($code);
-        return $this->updateProfession($professionData, $request);
+        $professionCategoryData = $this->getProfessionCategory($code);
+        return $this->updateProfessionCategory($professionCategoryData, $request);
     }
 
     /**
@@ -56,27 +54,25 @@ class Profession extends Model
      * @param Integer $id
      * @return Profession
      */
-    public function updateProfessionById($request, $id)
+    public function updateProfessionCategoryById($request, $id)
     {
-        $professionData = $this->getProfessionById($id);
-        return $this->updateProfession($professionData, $request);
+        $professionCategoryData = $this->getProfessionCategoryById($id);
+        return $this->updateProfessionCategory($professionCategoryData, $request);
     }
 
     /**
      * Update Profession
      *
-     * @param Profession $professionData
+     * @param Profession $professionCategoryData
      * @param Request $request
      * @return Profession
      */
-    private function updateProfession($professionData, $request){
-        if ($professionData != null) {
-            $professionData->profession_category_id = $request->profession_category_id;
-            $professionData->code = $request->code;
-            $professionData->name = $request->name;
-            $professionData->description = $request->description;
-            $professionData->save();
-            return $professionData;
+    private function updateProfessionCategory($professionCategoryData, $request){
+        if ($professionCategoryData != null) {
+            $professionCategoryData->code = $request->code;
+            $professionCategoryData->name = $request->name;
+            $professionCategoryData->save();
+            return $professionCategoryData;
         }
         return false;
     }
@@ -87,7 +83,7 @@ class Profession extends Model
      * @param String $code
      * @return List Of Profession
      */
-    public function getProfession($code)
+    public function getProfessionCategory($code)
     {
         return $this->where('code', $code)->first();
     }
@@ -98,17 +94,17 @@ class Profession extends Model
      * @param String $code
      * @return List Of Profession
      */
-    public function getProfessionById($id)
+    public function getProfessionCategoryById($id)
     {
         return $this->where('id', $id)->first();
     }
 
     /**
-     * getAllProfession
+     * getAllProfessionCategory
      *
      * @return List Of Profession
      */
-    public function getAllProfession()
+    public function getAllProfessionCategory()
     {
         return $this->get();
     }
@@ -119,7 +115,7 @@ class Profession extends Model
      * @param String $code
      * @return boolean
      */
-    public function deleteProfessionBy($code)
+    public function deleteProfessionCategoryBy($code)
     {
         try {
             $this->where('code', $code)->delete();
