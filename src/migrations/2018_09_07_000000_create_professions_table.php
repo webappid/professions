@@ -20,6 +20,7 @@ class CreateProfessionsTable extends Migration
             $table->increments('id')
                 ->comment('Table professions references');
             $table->integer('profession_category_id')
+                ->unsigned()
                 ->comment('relation to categories');
             $table->string('code')
                 ->index()
